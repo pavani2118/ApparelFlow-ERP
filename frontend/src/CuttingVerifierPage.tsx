@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CuttingVerifier.css";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "";
 const MAX_QUANTITY = 2147483647;
 
 type VerificationItem = {

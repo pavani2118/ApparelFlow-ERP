@@ -132,7 +132,7 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
       setRecipesError("");
 
       try {
-        const response = await fetch("http://localhost:5000/api/recipes", {
+        const response = await fetch("/api/recipes", {
           method: "GET",
           credentials: "include",
           signal: controller.signal,

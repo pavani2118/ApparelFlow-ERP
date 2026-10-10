@@ -2,7 +2,7 @@
 
 require("dotenv").config();
 
-
+const path = require("node:path");
 const {
   getQcStatus,
   isBlockingComponent
@@ -3120,6 +3120,36 @@ app.get(
 
 );
 
+
+/* ==========================================
+   REACT PRODUCTION FRONTEND
+   ========================================== */
+
+const frontendDist = path.resolve(
+  __dirname,
+  "../frontend/dist"
+);
+
+// Serve built React assets
+app.use(express.static(frontendDist));
+
+// React SPA fallback (Express 5)
+app.get("/{*splat}", (req, res, next) => {
+  // Do not return React HTML for unknown APIs
+  if (req.path === "/api" || req.path.startsWith("/api/")) {
+    return res.status(404).json({
+      success: false,
+      message: "API endpoint not found",
+    });
+  }
+
+  res.sendFile(
+    path.join(frontendDist, "index.html"),
+    (error) => {
+      if (error) next(error);
+    }
+  );
+});
 
 
 app.listen(PORT, () => {

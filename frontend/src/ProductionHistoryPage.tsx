@@ -34,7 +34,7 @@ type HistoryApiResponse = {
   message?: string;
 };
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "";
 
 function formatDate(value: string | null | undefined): string {
   if (!value) return "Not recorded";

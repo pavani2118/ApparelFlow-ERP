@@ -33,7 +33,7 @@ type HistoryResponse = {
   message?: string;
 };
 
-const HISTORY_URL = "http://localhost:5000/api/verifier/history";
+const HISTORY_URL = "/api/verifier/history";
 
 function displayTimestamp(value: string): string {
   const date = new Date(value);

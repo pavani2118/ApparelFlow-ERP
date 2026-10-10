@@ -41,7 +41,7 @@ type CuttingOrder = {
   verificationItems: VerificationItem[];
 };
 
-const API = "http://localhost:5000";
+const API = "";
 
 const statusLabels: Record<string, string> = {
   CUTTING_IN_PROGRESS: "Cutting In Progress",

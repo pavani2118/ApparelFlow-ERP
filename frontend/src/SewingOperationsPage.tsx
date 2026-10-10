@@ -66,7 +66,7 @@ type SewingOperationsProps = {
   onNavigate: (view: string) => void;
 };
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "";
 
 function formatDate(value: string): string {
   const date = new Date(value);

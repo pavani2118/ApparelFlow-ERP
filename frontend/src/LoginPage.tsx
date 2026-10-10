@@ -26,7 +26,7 @@ function LoginPage({ onBack, onLogin }: LoginPageProps) {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/login",
+        "/api/auth/login",
         {
           method: "POST",
           credentials: "include",

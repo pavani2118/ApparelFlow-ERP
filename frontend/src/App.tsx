@@ -22,7 +22,7 @@ function App() {
     async function checkSession() {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/auth/me",
+          "/api/auth/me",
           {
             method: "GET",
             credentials: "include",
@@ -61,7 +61,7 @@ function App() {
   async function handleLogout() {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/logout",
+        "/api/auth/logout",
         {
           method: "POST",
           credentials: "include",
