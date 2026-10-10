@@ -1,0 +1,149 @@
+
+.af-cprogress {
+  padding: 8px 0 32px;
+  color: #173657;
+}
+
+.af-cprogress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.af-cprogress-eyebrow {
+  color: #1686c9;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.af-cprogress-header h2 {
+  margin: 8px 0;
+  font-size: 26px;
+}
+
+.af-cprogress-header p,
+.af-cprogress-panel > p {
+  color: #64748b;
+}
+
+.af-cprogress-header button {
+  border: 0;
+  border-radius: 10px;
+  background: #1686c9;
+  color: white;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.af-cprogress-header button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.af-cprogress-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.af-cprogress-stat,
+.af-cprogress-panel {
+  background: white;
+  border: 1px solid #dfebf5;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 4px 16px rgba(20, 73, 117, 0.04);
+}
+
+.af-cprogress-stat span {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.af-cprogress-stat strong {
+  display: block;
+  font-size: 30px;
+  margin-top: 12px;
+  color: #146da4;
+}
+
+.af-cprogress-panel h3 {
+  margin-top: 0;
+}
+
+.af-cprogress-scroll {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.af-cprogress table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.af-cprogress th,
+.af-cprogress td {
+  padding: 14px;
+  border-bottom: 1px solid #e5edf5;
+  white-space: nowrap;
+}
+
+.af-cprogress th {
+  background: #f0f8ff;
+  color: #325b7c;
+  font-size: 13px;
+}
+
+.af-cprogress-badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.af-cprogress-badge.active {
+  background: #e3f2fd;
+  color: #1565a2;
+}
+
+.af-cprogress-badge.pending {
+  background: #fff3d4;
+  color: #946200;
+}
+
+.af-cprogress-badge.approved {
+  background: #e0f5e9;
+  color: #17633f;
+}
+
+.af-cprogress-badge.rejected,
+.af-cprogress-error {
+  background: #fde8e8;
+  color: #a32020;
+}
+
+.af-cprogress-error {
+  padding: 14px;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .af-cprogress-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .af-cprogress-stats {
+    grid-template-columns: 1fr;
+  }
+}

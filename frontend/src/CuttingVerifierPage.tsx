@@ -62,9 +62,15 @@ type InspectionRow = {
   rawValue: string;
 };
 
-function CuttingVerifierPage() {
+type CuttingVerifierPageProps = {
+  initialOrderId?: number | null;
+};
+
+function CuttingVerifierPage({
+  initialOrderId = null,
+}: CuttingVerifierPageProps) {
   const [orders, setOrders] = useState<PendingOrder[]>([]);
-  const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
+  const [selectedOrderId, setSelectedOrderId] = useState<number | null>(initialOrderId);
   const [counts, setCounts] = useState<Record<number, string>>({});
   const [rejectionNote, setRejectionNote] = useState("");
   const [loading, setLoading] = useState(true);

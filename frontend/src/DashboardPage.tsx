@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 import CuttingOrdersPage from "./CuttingOrdersPage";
 import CuttingVerifierPage from "./CuttingVerifierPage";
+import PendingVerificationPage from "./PendingVerificationPage";
 import VerificationHistoryPage from "./VerificationHistoryPage";
 import SewingOperationsPage from "./SewingOperationsPage";
 import "./Dashboard.css";
 import ProductionHistoryPage from "./ProductionHistoryPage";
+import CuttingProgressPage from "./CuttingProgressPage";
 // ==========================================
 // USER TYPES
 // ==========================================
-
 export type DashboardUser = {
   id: number;
   fullName: string;
   email: string;
   role: string;
 };
-
 type DashboardProps = {
   user: DashboardUser;
   onLogout: () => void;
 };
-
 type RecipeComponent = {
   id: number;
   recipeId: number;
@@ -28,7 +27,6 @@ type RecipeComponent = {
   piecesPerGarment: number;
   imageUrl: string | null;
 };
-
 type Recipe = {
   id: number;
   recipeCode: string;
@@ -38,20 +36,17 @@ type Recipe = {
   wastageCap: number;
   components: RecipeComponent[];
 };
-
 type RecipeApiResponse = {
   success: boolean;
   count?: number;
   data?: Recipe[];
   message?: string;
 };
-
 type RoleConfig = {
   title: string;
   description: string;
   sections: string[];
 };
-
 const roleConfig: Record<string, RoleConfig> = {
   cutting_supervisor: {
     title: "Cutting Supervisor",
@@ -79,79 +74,64 @@ const roleConfig: Record<string, RoleConfig> = {
     ],
   },
 };
-
 function DashboardPage({ user, onLogout }: DashboardProps) {
   const config = roleConfig[user.role];
   const [activeView, setActiveView] = useState("Dashboard Overview");
+  const [selectedQcOrderId, setSelectedQcOrderId] = useState<number | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipeId, setSelectedRecipeId] = useState<number | null>(null);
   const [recipesLoading, setRecipesLoading] = useState(false);
   const [recipesError, setRecipesError] = useState("");
   const [refreshCount, setRefreshCount] = useState(0);
-
   const isRecipesView =
     activeView === "Production Recipes" &&
     user.role === "cutting_supervisor";
-
   const isCuttingOrdersView =
     activeView === "Cutting Orders" &&
     user.role === "cutting_supervisor";
-
-  // Both verifier navigation items open the actual QC workspace.
-  const isVerifierView =
-    user.role === "cutting_verifier" &&
-    (activeView === "Pending Verification" ||
-      activeView === "Component Quality Control");
-
+const isCuttingProgressView =
+  activeView === "Cutting Progress" &&
+  user.role === "cutting_supervisor";
+  const isPendingVerificationView =
+    user.role === "cutting_verifier" && activeView === "Pending Verification";
+  const isComponentQcView =
+    user.role === "cutting_verifier" && activeView === "Component Quality Control";
   const isHistoryView =
     user.role === "cutting_verifier" && activeView === "Verification History";
-
   const isSewingQueueView =
     user.role === "sewing_supervisor" &&
     activeView === "Verified Sewing Queue";
-
   const isSewingProgressView =
     user.role === "sewing_supervisor" &&
     activeView === "Assembly Operations";
-
   const isProductionHistoryView =
     user.role === "sewing_supervisor" &&
     activeView === "Production History";
-
   // ========================================
   // FETCH RECIPES FROM BACKEND
   // ========================================
-
   useEffect(() => {
     if (!isRecipesView) return;
-
     const controller = new AbortController();
-
     async function loadRecipes() {
       setRecipesLoading(true);
       setRecipesError("");
-
       try {
         const response = await fetch("/api/recipes", {
           method: "GET",
           credentials: "include",
           signal: controller.signal,
         });
-
         const result: RecipeApiResponse = await response.json();
-
         if (!response.ok) {
           throw new Error(
             result.message || `Unable to load recipes (${response.status})`
           );
         }
-
         if (!result.success || !Array.isArray(result.data)) {
           throw new Error("Invalid recipe data returned by the server.");
         }
-
         if (controller.signal.aborted) return;
-
         const loadedRecipes = result.data;
         setRecipes(loadedRecipes);
         setSelectedRecipeId((previousId) => {
@@ -172,14 +152,11 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
         }
       }
     }
-
     void loadRecipes();
     return () => controller.abort();
   }, [isRecipesView, refreshCount]);
-
   const selectedRecipe =
     recipes.find((recipe) => recipe.id === selectedRecipeId) ?? null;
-
   if (!config) {
     return (
       <main className="af-dashboard-error">
@@ -190,11 +167,9 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
       </main>
     );
   }
-
   // ========================================
   // DASHBOARD OVERVIEW
   // ========================================
-
   function renderOverview() {
     return (
       <>
@@ -206,41 +181,37 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
           </div>
           <div className="af-welcome-symbol">AF</div>
         </section>
-
         <div className="af-section-heading">
           <h2>Your Workspace</h2>
           <p>Available modules for your assigned role.</p>
         </div>
-
         <section className="af-module-grid">
           {config.sections.map((section, index) => {
             const isSupervisorReady =
               user.role === "cutting_supervisor" &&
-              (section === "Production Recipes" || section === "Cutting Orders");
-
+              (section === "Production Recipes" || section === "Cutting Orders"|| section === "Cutting Progress");
             const isVerifierReady =
               user.role === "cutting_verifier" &&
               (section === "Pending Verification" ||
                 section === "Component Quality Control" ||
                 section === "Verification History");
-
             const isSewingReady =
               user.role === "sewing_supervisor" &&
               (section === "Verified Sewing Queue" ||
                 section === "Assembly Operations" ||
                 section === "Production History");
-
             const ready = isSupervisorReady || isVerifierReady || isSewingReady;
-
             let description =
               `The ${section} module will be connected during the next development stage.`;
-
             if (section === "Production Recipes" && ready) {
               description =
                 "Explore production recipes, component requirements, and fabric standards.";
             } else if (section === "Cutting Orders" && ready) {
               description =
                 "Create cutting orders, review component requirements, and submit batches for verification.";
+            } else if (section === "Cutting Progress" && ready) {
+              description =
+                "Track your cutting orders through verification and sewing.";
             } else if (section === "Pending Verification" && ready) {
               description =
                 "View cutting batches awaiting independent verification and take a decision.";
@@ -260,7 +231,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
               description =
                 "Review completed batches, production totals, and every sewing progress audit entry.";
             }
-
             return (
               <button
                 type="button"
@@ -289,11 +259,9 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
       </>
     );
   }
-
   // ========================================
   // PRODUCTION RECIPES PAGE (UNCHANGED UI)
   // ========================================
-
   function renderRecipes() {
     return (
       <section className="af-recipes-page">
@@ -315,13 +283,11 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
             {recipesLoading ? "Loading..." : "↻ Refresh Recipes"}
           </button>
         </div>
-
         {recipesLoading && recipes.length === 0 && (
           <div className="af-recipes-message" role="status">
             Loading recipes from database...
           </div>
         )}
-
         {recipesError && (
           <div className="af-recipes-error" role="alert">
             <strong>Unable to load recipes</strong>
@@ -334,18 +300,15 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
             </button>
           </div>
         )}
-
         {!recipesLoading && !recipesError && recipes.length === 0 && (
           <div className="af-recipes-message">No production recipes found.</div>
         )}
-
         {recipes.length > 0 && (
           <>
             <div className="af-recipes-summary">
               <strong>{recipes.length}</strong>
               <span>Available Production Recipes</span>
             </div>
-
             <div className="af-recipes-layout">
               <div className="af-recipe-list">
                 <h3>Select a Recipe</h3>
@@ -370,7 +333,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
                   </button>
                 ))}
               </div>
-
               {selectedRecipe && (
                 <article className="af-recipe-details">
                   <div className="af-recipe-details-header">
@@ -385,7 +347,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
                     </div>
                     <span className="af-recipe-badge">Active Recipe</span>
                   </div>
-
                   <div className="af-recipe-stats">
                     <div className="af-recipe-stat">
                       <span>Standard Fabric</span>
@@ -409,7 +370,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
                       <p>Required categories</p>
                     </div>
                   </div>
-
                   <div className="af-components-heading">
                     <h4>Cutting Components</h4>
                     <p>Required pieces for one garment.</p>
@@ -452,7 +412,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
       </section>
     );
   }
-
   function renderUpcoming() {
     return (
       <section className="af-upcoming-page">
@@ -468,11 +427,9 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
       </section>
     );
   }
-
   // ========================================
   // DASHBOARD LAYOUT
   // ========================================
-
   return (
     <div className="af-dashboard">
       <aside className="af-sidebar">
@@ -483,7 +440,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
             <small>ENTERPRISE ERP</small>
           </div>
         </div>
-
         <nav className="af-sidebar-section" aria-label="Workspace navigation">
           <span className="af-sidebar-label">WORKSPACE</span>
           <button
@@ -500,7 +456,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
           >
             ◈ &nbsp; Dashboard Overview
           </button>
-
           {config.sections.map((section) => (
             <button
               type="button"
@@ -515,7 +470,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
             </button>
           ))}
         </nav>
-
         <div className="af-sidebar-bottom">
           <div className="af-sidebar-profile">
             <div className="af-avatar">{user.fullName.charAt(0)}</div>
@@ -529,7 +483,6 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
           </button>
         </div>
       </aside>
-
       <main className="af-main-content">
         <header className="af-dashboard-topbar">
           <div>
@@ -541,27 +494,34 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
             Authenticated Session
           </div>
         </header>
-
         {activeView === "Dashboard Overview" ? (
           renderOverview()
         ) : isRecipesView ? (
           renderRecipes()
         ) : isCuttingOrdersView ? (
           <CuttingOrdersPage />
-        ) : isVerifierView ? (
-          <CuttingVerifierPage />
+        ) : isCuttingProgressView ? (
+          <CuttingProgressPage />
+        ) : isPendingVerificationView ? (
+          <PendingVerificationPage
+            onInspect={(orderId) => {
+              setSelectedQcOrderId(orderId);
+              setActiveView("Component Quality Control");
+            }}
+          />
+        ) : isComponentQcView ? (
+          <CuttingVerifierPage initialOrderId={selectedQcOrderId} />
         ) : isHistoryView ? (
           <VerificationHistoryPage />
         ) : isSewingQueueView ? (
           <SewingOperationsPage view="queue" onNavigate={setActiveView} />
         ) : isSewingProgressView ? (
-  <SewingOperationsPage view="progress" onNavigate={setActiveView} />
-) : isProductionHistoryView ? (
-  <ProductionHistoryPage />
-) : (
-  renderUpcoming()
-)}
-
+          <SewingOperationsPage view="progress" onNavigate={setActiveView} />
+        ) : isProductionHistoryView ? (
+          <ProductionHistoryPage />
+        ) : (
+          renderUpcoming()
+        )}
         <footer className="af-dashboard-footer">
           ApparelFlow ERP · Secure Production Management
         </footer>
@@ -569,5 +529,4 @@ function DashboardPage({ user, onLogout }: DashboardProps) {
     </div>
   );
 }
-
 export default DashboardPage;
