@@ -1,0 +1,312 @@
+/* ApparelFlow ERP - Sewing Supervisor workspace */
+.af-sewing-page {
+  width: 100%;
+  min-width: 0;
+  font-family: Inter, Arial, sans-serif;
+  color: #153d62;
+}
+
+.af-sewing-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.af-sewing-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  color: #1976d2;
+  margin-bottom: 9px;
+}
+
+.af-sewing-intro h2 { font-size: 25px; margin: 0 0 10px; color: #143e65; }
+.af-sewing-intro p { margin: 0; color: #68849d; font-size: 13px; line-height: 1.7; }
+.af-sewing-refresh {
+  padding: 11px 17px;
+  border: 1px solid #c2dcf0;
+  color: #1976c8;
+  background: #fff;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.af-sewing-refresh:hover:not(:disabled) { background: #edf7ff; }
+.af-sewing-refresh:disabled { opacity: .6; cursor: wait; }
+
+.af-sewing-tabs {
+  display: inline-flex;
+  max-width: 100%;
+  gap: 7px;
+  padding: 6px;
+  margin-bottom: 23px;
+  border: 1px solid #e0ebf5;
+  border-radius: 12px;
+  background: #f2f7fc;
+  flex-wrap: wrap;
+}
+.af-sewing-tab {
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #617e98;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.af-sewing-tab-active {
+  color: #176db9;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(18, 61, 101, .09);
+}
+.af-sewing-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 25px;
+}
+.af-sewing-stat {
+  min-width: 0;
+  padding: 22px;
+  border-radius: 15px;
+  border: 1px solid #dbe9f5;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(21, 61, 99, .05);
+}
+.af-sewing-stat span { display: block; color: #66859d; font-size: 12px; }
+.af-sewing-stat strong { display: block; margin: 12px 0 7px; color: #1579d2; font-size: 30px; line-height: 1.2; }
+.af-sewing-stat small { display: block; color: #8ba0b3; font-size: 11px; }
+.af-sewing-stat-rule strong { font-size: 19px; color: #28704f; }
+
+.af-sewing-notice, .af-sewing-error {
+  border-radius: 11px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.af-sewing-notice {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #176b48;
+  background: #ecfaf3;
+  border: 1px solid #c0e7d2;
+}
+.af-sewing-notice strong { font-weight: 800; }
+.af-sewing-notice span { flex: 1; }
+.af-sewing-notice button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 13px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  background: #218358;
+  cursor: pointer;
+}
+.af-sewing-error { background: #fff1f1; border: 1px solid #f2cccc; color: #a32828; }
+
+.af-sewing-empty {
+  padding: 42px 22px;
+  border: 1px solid #dce9f5;
+  border-radius: 15px;
+  text-align: center;
+  background: #fff;
+  color: #69839a;
+  font-size: 13px;
+}
+.af-sewing-empty-icon { font-size: 35px; margin-bottom: 14px; color: #72a6d2; }
+.af-sewing-empty h3 { color: #21486e; font-size: 18px; margin: 0 0 10px; }
+.af-sewing-empty p { margin: 0; line-height: 1.7; }
+.af-sewing-empty button {
+  margin-top: 18px;
+  padding: 12px 17px;
+  border: 0;
+  border-radius: 9px;
+  background: #1976d2;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.af-sewing-orders { display: grid; gap: 20px; }
+.af-sewing-card {
+  min-width: 0;
+  padding: 26px;
+  border-radius: 16px;
+  border: 1px solid #dce9f5;
+  background: #fff;
+  box-shadow: 0 5px 22px rgba(21, 61, 99, .06);
+}
+.af-sewing-card-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 24px; }
+.af-sewing-card-title { min-width: 0; }
+.af-sewing-card-title > span { display: block; color: #1976d2; font-weight: 800; letter-spacing: 1.2px; font-size: 11px; margin-bottom: 9px; }
+.af-sewing-card-title h3 { margin: 0 0 8px; font-size: 20px; color: #153d62; }
+.af-sewing-card-title small { display: block; color: #8a9fb1; font-size: 11px; overflow-wrap: anywhere; }
+.af-sewing-badge { border-radius: 20px; padding: 9px 13px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+.af-sewing-verified { color: #187447; background: #e5f7ec; }
+.af-sewing-active { color: #1b73bd; background: #e9f3ff; }
+.af-sewing-card-info { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px; }
+.af-sewing-card-info > div { min-width: 0; padding: 15px; background: #f3f8fe; border-radius: 10px; }
+.af-sewing-card-info span { display: block; margin-bottom: 9px; color: #738da3; font-size: 11px; }
+.af-sewing-card-info strong { display: block; font-size: 13px; color: #244968; overflow-wrap: anywhere; }
+.af-sewing-qc-summary { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; padding-bottom: 20px; }
+.af-sewing-qc-green, .af-sewing-qc-yellow, .af-sewing-qc-red { font-size: 11px; font-weight: 800; padding: 7px 11px; border-radius: 18px; }
+.af-sewing-qc-green { color: #187447; background: #e5f7ec; }
+.af-sewing-qc-yellow { color: #966700; background: #fff4d9; }
+.af-sewing-qc-red { color: #a82828; background: #ffeded; }
+.af-sewing-qc-label { color: #829bae; font-size: 11px; margin-left: auto; }
+.af-sewing-details { padding: 16px 18px; border-radius: 10px; border: 1px solid #e0eaf4; }
+.af-sewing-details summary { cursor: pointer; color: #1976c6; font-size: 13px; font-weight: 750; }
+.af-sewing-table-wrap { overflow-x: auto; margin-top: 16px; }
+.af-sewing-table { border-collapse: collapse; width: 100%; text-align: left; }
+.af-sewing-table th { background: #eef6ff; color: #52738e; padding: 13px 12px; font-size: 11px; }
+.af-sewing-table td { color: #335771; padding: 14px 12px; border-bottom: 1px solid #edf2f7; font-size: 12px; }
+.af-sewing-mini-qc { display: inline-block; font-size: 10px; }
+.af-sewing-card-footer { display: flex; justify-content: space-between; gap: 18px; align-items: center; flex-wrap: wrap; margin-top: 21px; }
+.af-sewing-card-footer p { flex: 1; margin: 0; color: #7791a6; line-height: 1.6; font-size: 12px; }
+.af-sewing-start { border: 0; background: linear-gradient(135deg, #248be8, #1263b5); border-radius: 9px; padding: 13px 22px; font: inherit; color: #fff; font-size: 13px; font-weight: 800; cursor: pointer; }
+.af-sewing-start:hover:not(:disabled) { filter: brightness(.96); }
+.af-sewing-start:disabled { opacity: .55; cursor: wait; }
+.af-sewing-progress-label { padding: 11px 15px; border-radius: 9px; background: #edf6ff; color: #1b70b4; font-size: 12px; font-weight: 800; }
+
+@media (max-width: 1250px) {
+  .af-sewing-card-info { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .af-sewing-stats { grid-template-columns: 1fr; }
+  .af-sewing-card { padding: 19px; }
+  .af-sewing-card-info { grid-template-columns: 1fr; }
+  .af-sewing-card-footer { align-items: stretch; }
+  .af-sewing-start { width: 100%; }
+  .af-sewing-qc-label { margin-left: 0; }
+}
+/* Step 5.7 - Sewing progress tracking (append to existing SewingOperations.css) */
+.af-sewing-progress-panel {
+  margin-top: 20px;
+  padding: 22px;
+  border: 1px solid #d6e9f8;
+  border-radius: 14px;
+  background: #f7fbff;
+}
+.af-sewing-progress-header,
+.af-sewing-progress-subtext {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.af-sewing-progress-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #4883b7;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.af-sewing-progress-header strong {
+  color: #1b4c73;
+  font-size: 17px;
+}
+.af-sewing-progress-percent {
+  color: #1678d2;
+  font-size: 25px;
+  font-weight: 800;
+}
+.af-sewing-progress-track {
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  margin: 17px 0 9px;
+  border-radius: 999px;
+  background: #dfedfa;
+}
+.af-sewing-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6ab6f3, #1976d2);
+  transition: width 300ms ease;
+}
+.af-sewing-progress-subtext {
+  color: #6b8ba6;
+  font-size: 12px;
+}
+.af-sewing-progress-controls {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+.af-sewing-progress-field {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.af-sewing-progress-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #365b7c;
+  font-size: 12px;
+  font-weight: 750;
+}
+.af-sewing-progress-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #bcd8ed;
+  border-radius: 9px;
+  background: #fff;
+  color: #153d62;
+  font: inherit;
+  font-size: 14px;
+}
+.af-sewing-progress-field input:focus {
+  outline: 2px solid #99cdf7;
+  outline-offset: 1px;
+  border-color: #2e8dde;
+}
+.af-sewing-update-progress {
+  min-height: 44px;
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 9px;
+  background: #1976d2;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.af-sewing-update-progress:hover:not(:disabled) {
+  background: #1266ba;
+}
+.af-sewing-update-progress:disabled,
+.af-sewing-progress-field input:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.af-sewing-progress-help {
+  margin: 13px 0 0;
+  color: #778fa4;
+  font-size: 11px;
+  line-height: 1.65;
+}
+@media (max-width: 760px) {
+  .af-sewing-progress-panel { padding: 17px; }
+  .af-sewing-progress-controls { align-items: stretch; }
+  .af-sewing-update-progress { width: 100%; }
+}

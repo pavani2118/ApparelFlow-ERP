@@ -1,0 +1,150 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f4f7fb;
+  color: #172b4d;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.dashboard {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 24px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  color: #1764ba;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.subtitle, .recipe-heading p {
+  color: #52627a;
+}
+
+.system-badge {
+  background: #e1f2e9;
+  color: #12623b;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.summary-card, .recipe-card {
+  background: #fff;
+  border: 1px solid #dbe4f0;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(20, 40, 70, 0.04);
+}
+
+.summary-card span, .metrics span {
+  display: block;
+  color: #52627a;
+  font-size: 13px;
+}
+
+.summary-card strong {
+  display: block;
+  font-size: 32px;
+  margin-top: 10px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.recipe-code {
+  color: #1764ba;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.recipe-card h2 {
+  margin: 10px 0 4px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.metrics div {
+  background: #f1f6fc;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.metrics strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.recipe-card h3 {
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.component {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e3e9f2;
+  font-size: 14px;
+}
+
+.component strong {
+  color: #1764ba;
+  white-space: nowrap;
+}
+
+.error {
+  color: #b42318;
+}
+
+@media (max-width: 700px) {
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .recipe-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard {
+    padding: 24px 16px;
+  }
+}

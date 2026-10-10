@@ -1,0 +1,195 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// 1. USER ROLES
+// ==========================================
+
+enum Role {
+  cutting_supervisor
+  cutting_verifier
+  sewing_supervisor
+}
+
+// ==========================================
+// 2. USERS
+// ==========================================
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  fullName     String   @map("full_name")
+  role         Role
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  cuttingOrders      CuttingOrder[]
+  verificationLogs   VerificationLog[]
+  sewingProgressLogs SewingProgressLog[]
+
+  @@map("users")
+}
+
+// ==========================================
+// 3. PRODUCTION RECIPES
+// ==========================================
+
+model Recipe {
+  id             Int    @id @default(autoincrement())
+  recipeCode     String @unique @map("recipe_code")
+  name           String
+  category       String
+  stdFabricYards Float  @map("std_fabric_yards")
+  wastageCap     Float  @map("wastage_cap")
+
+  components    RecipeComponent[]
+  cuttingOrders CuttingOrder[]
+
+  @@map("recipes")
+}
+
+// ==========================================
+// 4. RECIPE COMPONENTS
+// ==========================================
+
+model RecipeComponent {
+  id               Int     @id @default(autoincrement())
+  recipeId         Int     @map("recipe_id")
+  componentName    String  @map("component_name")
+  piecesPerGarment Int     @map("pieces_per_garment")
+  imageUrl         String? @map("image_url")
+
+  recipe            Recipe             @relation(fields: [recipeId], references: [id])
+  verificationItems VerificationItem[]
+
+  @@unique([recipeId, componentName])
+  @@map("recipe_components")
+}
+
+// ==========================================
+// 5. ORDER STATUS
+// ==========================================
+
+enum OrderStatus {
+  CUTTING_IN_PROGRESS
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
+  SEWING_IN_PROGRESS
+  SEWING_COMPLETED
+}
+
+// ==========================================
+// 6. CUTTING ORDERS
+// ==========================================
+
+model CuttingOrder {
+  id              Int         @id @default(autoincrement())
+  orderNo         String      @unique @map("order_no")
+  recipeId        Int         @map("recipe_id")
+  targetQty       Int         @map("target_qty")
+  fabricRollId    String      @map("fabric_roll_id")
+  actualFabricYds Float       @map("actual_fabric_yds")
+  status          OrderStatus @default(CUTTING_IN_PROGRESS)
+  createdBy       Int         @map("created_by")
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  // Sewing Progress Tracking - NEW
+  completedQty      Int       @default(0) @map("completed_qty")
+  sewingStartedAt   DateTime? @map("sewing_started_at")
+  sewingCompletedAt DateTime? @map("sewing_completed_at")
+
+  // Relationships
+  recipe  Recipe @relation(fields: [recipeId], references: [id])
+  creator User   @relation(fields: [createdBy], references: [id])
+
+  verificationItems  VerificationItem[]
+  verificationLogs   VerificationLog[]
+  sewingProgressLogs SewingProgressLog[]
+
+  @@map("cutting_orders")
+}
+
+// ==========================================
+// 7. COMPONENT VERIFICATION STATUS
+// ==========================================
+
+enum VerificationStatus {
+  GREEN
+  YELLOW
+  RED
+}
+
+// ==========================================
+// 8. VERIFICATION ITEMS
+// ==========================================
+
+model VerificationItem {
+  id          Int                 @id @default(autoincrement())
+  orderId     Int                 @map("order_id")
+  componentId Int                 @map("component_id")
+  expectedQty Int                 @map("expected_qty")
+  actualQty   Int?                @map("actual_qty")
+  status      VerificationStatus?
+
+  order     CuttingOrder    @relation(fields: [orderId], references: [id])
+  component RecipeComponent @relation(fields: [componentId], references: [id])
+
+  @@unique([orderId, componentId])
+  @@map("verification_items")
+}
+
+// ==========================================
+// 9. VERIFICATION DECISION
+// ==========================================
+
+enum VerificationDecision {
+  APPROVED
+  REJECTED
+}
+
+// ==========================================
+// 10. VERIFICATION AUDIT LOGS
+// ==========================================
+
+model VerificationLog {
+  id            Int                  @id @default(autoincrement())
+  orderId       Int                  @map("order_id")
+  verifierId    Int                  @map("verifier_id")
+  decision      VerificationDecision
+  rejectionNote String?              @map("rejection_note")
+  wastagePct    Float?               @map("wastage_pct")
+  timestamp     DateTime             @default(now())
+
+  order    CuttingOrder @relation(fields: [orderId], references: [id])
+  verifier User         @relation(fields: [verifierId], references: [id])
+
+  @@map("verification_logs")
+}
+
+// ==========================================
+// 11. SEWING PROGRESS AUDIT LOG - NEW
+// ==========================================
+
+model SewingProgressLog {
+  id           Int      @id @default(autoincrement())
+  orderId      Int      @map("order_id")
+  supervisorId Int      @map("supervisor_id")
+  previousQty  Int      @map("previous_qty")
+  completedQty Int      @map("completed_qty")
+  timestamp    DateTime @default(now())
+
+  order      CuttingOrder @relation(fields: [orderId], references: [id])
+  supervisor User         @relation(fields: [supervisorId], references: [id])
+
+  @@index([orderId, timestamp])
+  @@map("sewing_progress_logs")
+}

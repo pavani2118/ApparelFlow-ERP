@@ -1,0 +1,384 @@
+
+.af-login-page {
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  background: #f5f9ff;
+  color: #153653;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.af-login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 6%;
+  background: #ffffff;
+  border-bottom: 1px solid #e2ebf5;
+}
+
+.af-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #103c70;
+}
+
+.af-logo-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: #1976d2;
+  color: white;
+  border-radius: 11px;
+  font-size: 23px;
+}
+
+.af-back {
+  background: transparent;
+  border: none;
+  color: #245c94;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.af-login-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1160px;
+  min-height: 610px;
+  margin: 48px auto;
+  border: 1px solid #deebf7;
+  background: white;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 65px rgba(22, 70, 120, 0.08);
+}
+
+.af-login-form-panel {
+  padding: clamp(28px, 5vw, 65px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.af-eyebrow {
+  color: #1976d2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.af-login-form-panel h1 {
+  margin: 14px 0 10px;
+  font-size: clamp(28px, 3vw, 38px);
+  color: #12375c;
+}
+
+.af-subtitle {
+  color: #5c7389;
+  line-height: 1.7;
+  margin: 0 0 30px;
+  font-size: 14px;
+}
+
+.af-field {
+  margin-bottom: 20px;
+}
+
+.af-field label,
+.af-demo-panel label {
+  display: block;
+  color: #203e5a;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+.af-field input,
+.af-demo-panel select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  background: #ffffff;
+  color: #183855;
+  border: 1px solid #bfcedd;
+  border-radius: 9px;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+}
+
+.af-field input:focus,
+.af-demo-panel select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px #1976d226;
+}
+
+.af-field input::placeholder {
+  color: #667f98;
+}
+
+.af-password-box {
+  position: relative;
+}
+
+.af-password-box input {
+  padding-right: 75px;
+}
+
+.af-show-password {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 9px;
+  background: white;
+  border: none;
+  color: #1768b3;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.af-sign-in {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px;
+  margin-top: 6px;
+  color: #ffffff;
+  background: linear-gradient(110deg, #1976d2, #095caf);
+  border: none;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.af-sign-in:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.af-sign-in:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.af-back:focus-visible,
+.af-sign-in:focus-visible,
+.af-show-password:focus-visible {
+  outline: 3px solid #65b4ff;
+  outline-offset: 3px;
+}
+
+.af-error {
+  padding: 11px;
+  background: #fff0f0;
+  color: #a62525;
+  border: 1px solid #f4cbcb;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.af-demo-panel {
+  margin-top: 30px;
+  padding: 18px;
+  background: #eef6ff;
+  border: 1px solid #d4e7fb;
+  border-radius: 12px;
+}
+
+.af-demo-panel h2 {
+  font-size: 15px;
+  color: #174d82;
+  margin: 0 0 8px;
+}
+
+.af-demo-panel p,
+.af-demo-panel small {
+  color: #506e8a;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.af-demo-panel select {
+  margin-bottom: 10px;
+}
+
+.af-login-brand-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 55px;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    #deefff 0%,
+    #b9dcfc 100%
+  );
+}
+
+.af-brand-art {
+  position: relative;
+  height: 220px;
+  display: grid;
+  place-items: center;
+}
+
+.af-art-ring {
+  position: absolute;
+  border: 1px solid #348cdb66;
+  border-radius: 50%;
+  animation: afFloat 5s ease-in-out infinite;
+}
+
+.af-ring-one {
+  width: 155px;
+  height: 155px;
+}
+
+.af-ring-two {
+  width: 215px;
+  height: 215px;
+  animation-delay: -2s;
+}
+
+.af-art-center {
+  display: grid;
+  place-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 25px;
+  color: #ffffff;
+  background: linear-gradient(145deg, #3099f8, #145bac);
+  font-size: 40px;
+  font-weight: 850;
+  box-shadow: 0 18px 48px #1976d24a;
+}
+
+.af-brand-message span {
+  color: #1b619f;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.af-brand-message h2 {
+  margin: 18px 0;
+  color: #10385d;
+  font-size: clamp(30px, 3.4vw, 47px);
+  line-height: 1.13;
+}
+
+.af-brand-message p {
+  color: #355e82;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.af-feature-list {
+  display: grid;
+  gap: 13px;
+  margin-top: 30px;
+  color: #164e80;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.af-success-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  background: #d9f7e7;
+  color: #137747;
+  border-radius: 50%;
+  font-size: 32px;
+}
+
+.af-login-success p {
+  color: #4f6983;
+  line-height: 1.7;
+}
+
+.af-user-details {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0;
+  padding: 18px;
+  background: #f0f7ff;
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.af-user-details span {
+  color: #58738d;
+  font-size: 12px;
+}
+
+.af-user-details strong {
+  color: #154a7c;
+  margin-bottom: 8px;
+}
+
+.af-next-note {
+  font-size: 13px;
+}
+
+@keyframes afFloat {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (max-width: 900px) {
+  .af-login-layout {
+    grid-template-columns: 1fr;
+    margin: 20px;
+  }
+
+  .af-login-brand-panel {
+    padding: 30px;
+  }
+
+  .af-brand-art {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .af-login-header {
+    padding: 18px;
+  }
+
+  .af-login-layout {
+    margin: 12px;
+  }
+
+  .af-login-form-panel {
+    padding: 26px 20px;
+  }
+
+  .af-logo {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .af-art-ring {
+    animation: none;
+  }
+
+  .af-sign-in {
+    transition: none;
+  }
+}

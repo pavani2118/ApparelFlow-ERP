@@ -1,0 +1,711 @@
+
+/* ==========================================
+   APPARELFLOW ERP
+   CUTTING ORDER MANAGEMENT
+   ========================================== */
+
+/* MAIN PAGE */
+
+.af-cutting-page {
+  width: 100%;
+  color: #173d62;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.af-cutting-heading {
+  margin-bottom: 28px;
+}
+
+.af-cutting-heading > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #1976d2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.af-cutting-heading h2 {
+  margin: 0 0 10px;
+  color: #153c63;
+  font-size: 26px;
+}
+
+.af-cutting-heading p {
+  margin: 0;
+  color: #69829a;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* ==========================================
+   CREATE ORDER FORM LAYOUT
+   ========================================== */
+
+.af-cutting-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(290px, 0.9fr)
+    minmax(0, 1.1fr);
+  align-items: start;
+  gap: 22px;
+}
+
+.af-cutting-panel,
+.af-cutting-preview {
+  min-width: 0;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #dce8f4;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(21, 61, 99, 0.06);
+}
+
+.af-cutting-panel-title {
+  margin-bottom: 25px;
+}
+
+.af-cutting-panel-title h3 {
+  margin: 0 0 8px;
+  color: #173d62;
+  font-size: 19px;
+}
+
+.af-cutting-panel-title p {
+  margin: 0;
+  color: #718ba2;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* FORM FIELDS */
+
+.af-cutting-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 20px;
+}
+
+.af-cutting-field label {
+  font-size: 13px;
+  color: #244762;
+  font-weight: 750;
+}
+
+.af-cutting-field input,
+.af-cutting-field select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  background: #f9fcff;
+  border: 1px solid #d4e2ef;
+  border-radius: 9px;
+  color: #173c60;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.af-cutting-field input:focus,
+.af-cutting-field select:focus {
+  border-color: #2588e0;
+  outline: 3px solid rgba(37, 136, 224, 0.15);
+}
+
+.af-cutting-field input:disabled,
+.af-cutting-field select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* CREATE ORDER BUTTON */
+
+.af-cutting-submit {
+  display: block;
+  width: 100%;
+  min-height: 51px;
+  margin-top: 8px;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #258fe9,
+    #1265b9
+  );
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.af-cutting-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(25, 118, 210, 0.2);
+}
+
+.af-cutting-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ERROR MESSAGE */
+
+.af-cutting-error {
+  padding: 13px;
+  margin-bottom: 15px;
+  color: #a32828;
+  background: #fff1f1;
+  border: 1px solid #f1c8c8;
+  border-radius: 9px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   PRODUCTION REQUIREMENTS PREVIEW
+   ========================================== */
+
+.af-cutting-recipe-name {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.af-cutting-recipe-name strong {
+  color: #153c63;
+  font-size: 17px;
+}
+
+.af-cutting-recipe-name span {
+  color: #1674c4;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+/* REQUIREMENT STATISTICS */
+
+.af-cutting-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.af-cutting-stats > div {
+  padding: 20px;
+  border: 1px solid #e0ecf7;
+  border-radius: 12px;
+  background: #f1f8ff;
+}
+
+.af-cutting-stats span {
+  display: block;
+  color: #65829b;
+  font-size: 12px;
+}
+
+.af-cutting-stats strong {
+  display: block;
+  margin-top: 12px;
+  color: #1477cc;
+  font-size: 28px;
+}
+
+.af-cutting-stats small {
+  font-size: 13px;
+}
+
+.af-cutting-preview h4 {
+  margin: 0 0 15px;
+  color: #173d62;
+  font-size: 15px;
+}
+
+/* ==========================================
+   CUTTING COMPONENTS TABLE
+   ========================================== */
+
+.af-cutting-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.af-cutting-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.af-cutting-table th {
+  padding: 14px 10px;
+  background: #edf6ff;
+  color: #4b708f;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.af-cutting-table td {
+  padding: 15px 10px;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 12px;
+  color: #294e6c;
+}
+
+.af-cutting-table td strong {
+  color: #146fbc;
+}
+
+.af-cutting-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+/* CALCULATION NOTE */
+
+.af-cutting-info {
+  padding: 16px;
+  margin-top: 24px;
+  background: #eef7ff;
+  border-left: 3px solid #2387da;
+  border-radius: 7px;
+  color: #50718f;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   CUTTING ORDER CREATION SUCCESS
+   ========================================== */
+
+.af-cutting-success {
+  padding: 25px;
+  margin-top: 24px;
+  background: #f4fcf8;
+  border: 1px solid #bce7d2;
+  border-radius: 15px;
+}
+
+.af-cutting-success-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.af-cutting-success-title > span {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #1caa71;
+  font-weight: 800;
+}
+
+.af-cutting-success h3 {
+  margin: 0 0 9px;
+  color: #176946;
+}
+
+.af-cutting-success p {
+  margin: 0;
+  color: #567767;
+  line-height: 1.7;
+}
+
+.af-cutting-success-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 22px 0;
+}
+
+.af-cutting-success-details div {
+  min-width: 0;
+  padding: 13px;
+  background: #ffffff;
+  border-radius: 9px;
+}
+
+.af-cutting-success-details span {
+  display: block;
+  margin-bottom: 7px;
+  color: #6c8b79;
+  font-size: 12px;
+}
+
+.af-cutting-success-details strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+
+/* ==========================================
+   SAVED CUTTING ORDERS SECTION
+   ========================================== */
+
+.af-orders-section {
+  margin-top: 48px;
+  padding-bottom: 30px;
+}
+
+.af-orders-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.af-orders-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: #1976d2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.af-orders-heading h2 {
+  margin: 0 0 10px;
+  color: #153c63;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.af-orders-heading p {
+  margin: 0;
+  color: #6a849d;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* REFRESH ORDERS BUTTON */
+
+.af-orders-refresh {
+  padding: 12px 18px;
+  border: 1px solid #bed9f0;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #176eb7;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.af-orders-refresh:hover:not(:disabled) {
+  background: #edf7ff;
+}
+
+.af-orders-refresh:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+/* ==========================================
+   SAVED ORDER CARDS
+   ========================================== */
+
+.af-orders-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.af-order-card {
+  min-width: 0;
+  padding: 26px;
+  border: 1px solid #dce9f5;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 24px rgba(21, 61, 99, 0.07);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.af-order-card:hover {
+  box-shadow: 0 12px 28px rgba(21, 61, 99, 0.1);
+}
+
+.af-order-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 23px;
+}
+
+.af-order-title {
+  min-width: 0;
+}
+
+.af-order-number {
+  display: block;
+  margin-bottom: 8px;
+  color: #1976d2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.af-order-title h3 {
+  margin: 0 0 9px;
+  color: #163e65;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.af-order-title small {
+  display: block;
+  max-width: 100%;
+  color: #7590a8;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   ORDER STATUS BADGES
+   ========================================== */
+
+.af-order-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 14px;
+  border-radius: 25px;
+  background: #eef3f8;
+  color: #546d83;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.af-order-progress {
+  background: #e8f3ff;
+  color: #176bb7;
+}
+
+.af-order-pending {
+  background: #fff5da;
+  color: #936300;
+}
+
+.af-order-verified {
+  background: #e3f7eb;
+  color: #18794c;
+}
+
+.af-order-rejected {
+  background: #ffeded;
+  color: #a83030;
+}
+
+/* ==========================================
+   SAVED ORDER INFORMATION
+   ========================================== */
+
+.af-order-information {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 23px;
+}
+
+.af-order-information > div {
+  min-width: 0;
+  padding: 16px;
+  border-radius: 10px;
+  background: #f3f8fe;
+}
+
+.af-order-information span {
+  display: block;
+  margin-bottom: 10px;
+  color: #6e889f;
+  font-size: 11px;
+}
+
+.af-order-information strong {
+  display: block;
+  color: #1b4367;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   VIEW EXPECTED COMPONENTS
+   ========================================== */
+
+.af-order-details {
+  padding: 16px 18px;
+  border: 1px solid #e0eaf4;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.af-order-details[open] {
+  background: #fbfdff;
+}
+
+.af-order-details summary {
+  color: #176db9;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.af-order-details summary:hover {
+  color: #0d5394;
+}
+
+.af-order-details .af-cutting-table-wrap {
+  margin-top: 18px;
+}
+
+/* ==========================================
+   ORDER ACTIONS
+   ========================================== */
+
+.af-order-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 20px;
+  min-height: 44px;
+}
+
+.af-order-submit {
+  padding: 13px 21px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(
+    135deg,
+    #248be8,
+    #1263b5
+  );
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.af-order-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(25, 118, 210, 0.2);
+}
+
+.af-order-submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.af-order-no-action {
+  color: #6c879e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ==========================================
+   SUCCESS / LOADING / EMPTY MESSAGES
+   ========================================== */
+
+.af-orders-notice {
+  padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #b7e2ca;
+  border-radius: 10px;
+  background: #ecfaf2;
+  color: #187449;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.af-orders-loading,
+.af-orders-empty {
+  padding: 28px;
+  border: 1px solid #dfebf6;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #668199;
+  font-size: 14px;
+}
+
+/* ==========================================
+   TABLET RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 1200px) {
+  .af-orders-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1100px) {
+  .af-cutting-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 600px) {
+  .af-cutting-panel,
+  .af-cutting-preview {
+    padding: 20px;
+  }
+
+  .af-cutting-success-details {
+    grid-template-columns: 1fr;
+  }
+
+  .af-cutting-heading h2 {
+    font-size: 23px;
+  }
+
+  .af-cutting-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .af-order-card {
+    padding: 19px;
+  }
+
+  .af-order-information {
+    grid-template-columns: 1fr;
+  }
+
+  .af-order-top {
+    flex-direction: column;
+  }
+
+  .af-order-actions {
+    justify-content: flex-start;
+  }
+
+  .af-order-submit {
+    width: 100%;
+  }
+
+  .af-orders-heading h2 {
+    font-size: 21px;
+  }
+}
